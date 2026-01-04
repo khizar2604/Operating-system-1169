@@ -1,25 +1,38 @@
 #include <stdio.h>
 #include <pthread.h>
 
+typedef struct 
+{
+    int id;
+    int gpa;
+
+}gpa;
+
 void* show_gpa(void* arg) {
     // Convert the void pointer back to float pointer
-    float gpa = *(float*)arg;
-
-    printf("Thread received GPA: %.2f\n", gpa);
-    printf("GPA × 2 = %.2f\n", gpa * 2);
+gpa* data = (gpa*)arg;
+    
+    printf("Student ID is:  %d\n", data->id);
+    printf("Thread received GPA: %d\n", data->gpa);
+  
+    //printf("GPA × 2 = %d\n", data->gpa * 2);
 
     return NULL;
 }
 
 int main() {
-    pthread_t thread_id;
-    float gpa = 3.45;
+    pthread_t t1 , t2;
+    gpa data1 = {1169,3};
+    gpa data2 = {1168,1};
 
-    printf("Creating thread with GPA: %.2f\n", gpa);
+   
+    
 
     // Pass address of 'gpa' to the thread
-    pthread_create(&thread_id, NULL, show_gpa, &gpa);
-    pthread_join(thread_id, NULL);
+    pthread_create(&t1, NULL, show_gpa, &data1);
+     pthread_create(&t2, NULL, show_gpa, &data2);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
 
     printf("Main thread done.\n");
     return 0;

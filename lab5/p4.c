@@ -11,6 +11,7 @@
  printf("Thread calculated sum of 1 to %d = %d\n", n, *result);
  return (void*)result; // Return the result
  }
+ 
  int main() {
  pthread_t thread_id;
  int n = 100;
